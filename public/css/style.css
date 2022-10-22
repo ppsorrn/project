@@ -1,0 +1,16 @@
+.column li
+{
+    list-style: none;
+}
+
+.caption {
+    text-align: center;
+    font-weight: bold;
+    color: orangered;
+    font-size: 25px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.column1 {
+    column-count: 2;
+}

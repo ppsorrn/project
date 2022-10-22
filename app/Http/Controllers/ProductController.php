@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Models\Product;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use App\Models\Shop;
 use Illuminate\Database\QueryException;
 
-class ProductController extends Controller
+class ProductController extends SearchableController
 {
     const ITEM_PER_PAGE = 5;
 
@@ -29,7 +29,7 @@ class ProductController extends Controller
                     $innerQuery
                         ->where('code', 'LIKE', "%{$word}%")
                         ->orWhere('name', 'LIKE', "%{$word}%")
-                        ->orWhereHas('category', function (Builder $catQuery) use ($word) {
+                        ->orWhereHas('type', function (Builder $catQuery) use ($word) {
                             $catQuery->where('name', 'LIKE', "%{$word}%");
                         });
                 });
@@ -66,26 +66,25 @@ class ProductController extends Controller
 
     function createForm()
     {
-        $this->authorize('create', Product::class);
-
-        $types = type::orderBy('code')->get();
+        
+        $types = Type::orderBy('code')->get();
 
         return view('products.create-form', [
             'title' => "{$this->title} : Create",
-            'types' => $type,
+            'types' => $types,
         ]);
     }
 
     function create(Request $request)
     {
-        $this->authorize('create', Product::class);
+
 
         try {
             $product = new Product();
             $data = $request->getParsedBody();
             $product->fill($data);
-            $category = Category::where('code', $data['category'])->firstOrFail();
-            $product->category()->associate($category);
+            $type = Type::where('code', $data['type'])->firstOrFail();
+            $product->type()->associate($type);
 
             $product->save();
 
@@ -105,7 +104,7 @@ class ProductController extends Controller
         $this->authorize('update', Product::class);
 
         $product = $this->find($productCode);
-        $categories = Category::orderBy('code')->get();
+        $types = Type::orderBy('code')->get();
 
         return view('products.update-form', [
             'title' => "{$this->title} : Update",
@@ -122,8 +121,8 @@ class ProductController extends Controller
             $product = $this->find($productCode);
             $data = $request->getParsedBody();
             $product->fill($data);
-            $category = Category::where('code', $data['category'])->firstOrFail();
-            $product->category()->associate($category);
+            $type = Type::where('code', $data['type'])->firstOrFail();
+            $product->type()->associate($type);
 
             $product->save();
 

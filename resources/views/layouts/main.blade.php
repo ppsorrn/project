@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benjarong - @yield('title')</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
     <header>
@@ -18,17 +18,23 @@
             </nav>
         @endauth
 
-        <div class="topic">
+        <div class="title">
             <nav>
                 <ul>
                     <li>
+                        <a href="/home">Home</a>
+                    </li>
+                    
+                    <li>
                         <a href="{{ route('product-list') }}">Product</a>
                     </li>
-                    <li>
-                        <a href="{{ route('category-list') }}">Category</a>
-                    </li>
+
                     <li>
                         <a href="{{ route('shop-list') }}">Shop</a>
+                    </li>
+
+                    <li>
+                        <a href="/contact">Contact</a>
                     </li>
                     @can('view', \App\Models\User::class)
                         <li>
@@ -56,7 +62,7 @@
         @yield('content')
     </div>
 
-    <footer class="footer">
+    <footer style="text">
         &#xA9; Copyright, 2022, Benjarong.
     </footer>
 </body>

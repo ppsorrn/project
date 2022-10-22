@@ -14,8 +14,8 @@ class Product extends Model
         return $this->belongsToMany(Shop::class);
     }
 
-    function category() 
+    function type() 
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Type::class);
     }
 }

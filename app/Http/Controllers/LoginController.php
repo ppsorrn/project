@@ -34,7 +34,7 @@ class LoginController extends Controller
         {
             session()->regenerate();
             
-            return redirect()->intended(route('product-list'));
+            return redirect()->intended('home');
         }
 
         return redirect()->back()->withErrors([
