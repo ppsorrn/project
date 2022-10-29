@@ -14,16 +14,15 @@
     </nav>
 
     <form action="{{ route('product-view-shop', ['product' => $product->code, ]) }}" method="get" class="search-form">
+        <!-- search -->
         <label>
             Search
             <input type="text" name="term" value="{{ $search['term'] }}" />
         </label>
         <br />
         <button type="submit" class="primary">Search</button>
-        <a href="{{ route('product-view-shop', ['product' => $product->code, ]) }}">
-            <button type="button" class="accent">Clear</button>
-        </a>
-        <br>
+        <br />
+        <!-- ให้สิทธิ admin only-->
         @can('update', \App\models\Product::class)
             <a href="{{ route('product-add-shop-form', ['product' => $product->code,]) }}">Add Shop</a>
         @endcan

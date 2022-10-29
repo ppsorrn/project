@@ -43,7 +43,7 @@ class ProductController extends SearchableController
     {
 
         $search = $this->prepareSearch($request->getQueryParams());
-        $query = $this->search($search)->withCount('shops');
+        $query = $this->search($search); //queryตรงนี้เกี่ยวไรกับshop ->withCount('shops')
 
         session()->put('bookmark.product-view', $request->getUri());
 
@@ -66,19 +66,19 @@ class ProductController extends SearchableController
 
     function createForm()
     {
-        
-        $types = Type::orderBy('code')->get();
+        $this->authorize('create', Product::class);
+
+        $type = Type::orderBy('code')->get();
 
         return view('products.create-form', [
             'title' => "{$this->title} : Create",
-            'types' => $types,
+            'types' => $type,
         ]);
     }
 
     function create(Request $request)
     {
-
-
+        $this->authorize('create', Product::class);
         try {
             $product = new Product();
             $data = $request->getParsedBody();
@@ -104,12 +104,12 @@ class ProductController extends SearchableController
         $this->authorize('update', Product::class);
 
         $product = $this->find($productCode);
-        $types = Type::orderBy('code')->get();
+        //$types = Type::orderBy('code')->get();
 
         return view('products.update-form', [
             'title' => "{$this->title} : Update",
             'product' => $product,
-            'categories' => $categories,
+            //'categories' => $categories,
         ]);
     }
 
@@ -121,14 +121,14 @@ class ProductController extends SearchableController
             $product = $this->find($productCode);
             $data = $request->getParsedBody();
             $product->fill($data);
-            $type = Type::where('code', $data['type'])->firstOrFail();
-            $product->type()->associate($type);
+            //$type = Type::where('code', $data['type'])->firstOrFail();
+            //$product->type()->associate($type);
 
             $product->save();
 
             return redirect()->route('product-view', [
                 'product' => $product->code,
-                'type' => $type
+                //'type' => $type
         ])
             ->with('status', "Product {$product->code} was update.");
 

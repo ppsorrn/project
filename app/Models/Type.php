@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['code', 'name'];
 
-    function products() {
-        return $this->hasMany(Product::class);
+    function order()
+    {
+        return $this->hasOne(Order::class);
     }
 }

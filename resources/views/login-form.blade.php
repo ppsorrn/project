@@ -21,6 +21,10 @@
         <br /><br />
         <button type="submit">Login</button>
         <br /><br />
+        <label>
+            <a href="{{ route('register-form') }}">Register</a>
+        </label>
+        <br /><br />
         @error('credentials')
             <div class="warn">{{ $message }}</div>
         @enderror

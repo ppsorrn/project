@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -19,18 +19,19 @@ class ProductPolicy
         //
     }
 
-    function update(User $user)
-    {
+    function update(User $user) {
         return $user->isAdministrator();
     }
 
-    function create(User $user)
-    {
+    function create(User $user) {
         return $this->update($user);
     }
 
-    function delete(User $user)
-    {
+    function delete(User $user) {
+        return $this->update($user);
+    }
+
+    function view(User $user) {
         return $this->update($user);
     }
 }

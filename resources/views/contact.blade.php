@@ -34,7 +34,7 @@
                     style="border:0;" 
                     allowfullscreen="auto" 
                     loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </td>
             </div>

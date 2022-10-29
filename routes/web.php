@@ -5,6 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,11 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/auth/login', 'loginForm')->name('login'); // name this route to login by default setting.
     Route::post('/auth/login', 'authenticate')->name('authenticate');
     Route::get('/auth/logout', 'logout')->name('logout');
+});
+
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/register/create', 'createForm')->name('register-form');
+    Route::post('/register/create', 'create')->name('register-create');
 });
 
 Route::controller(MainController::class)->group(function ()
@@ -44,15 +51,21 @@ Route::controller(ProductController::class)->middleware('auth')->group(function 
 });
 
 Route::controller(ShopController::class)->middleware('auth')->group(function () {
-        Route::get('/shop', 'list')->name('shop-list');
-        Route::get('/shop/create', 'createForm')->name('shop-create-form');
-        Route::post('/shop/create', 'create')->name('shop-create');
-        Route::get('/shop/{shop}', 'show')->name('shop-view');
-        Route::get('/shop/{shop}/product', 'showProduct',)->name('shop-view-product');
-        Route::get('/shop/{shop}/update', 'updateForm')->name('shop-update-form');
-        Route::post('/shop/{shop}/update', 'update')->name('shop-update');
-        Route::get('/shop/{shop}/delete', 'delete')->name('shop-delete');
-        Route::get('/shop/{shop}/product/add', 'addProductForm')->name('shop-add-product-form');
-        Route::post('/shop/{shop}/product/add', 'addProduct')->name('shop-add-product');
-        Route::get('/shop/{shop}/product/{product}/remove', 'removeProduct')->name('shop-remove-product');
+    Route::get('/shop', 'list')->name('shop-list');
+    Route::get('/shop/create', 'createForm')->name('shop-create-form');
+    Route::post('/shop/create', 'create')->name('shop-create');
+    Route::get('/shop/{shop}', 'show')->name('shop-view');
+    Route::get('/shop/{shop}/product', 'showProduct',)->name('shop-view-product');
+    Route::get('/shop/{shop}/update', 'updateForm')->name('shop-update-form');
+    Route::post('/shop/{shop}/update', 'update')->name('shop-update');
+    Route::get('/shop/{shop}/delete', 'delete')->name('shop-delete');
+    Route::get('/shop/{shop}/product/add', 'addProductForm')->name('shop-add-product-form');
+    Route::post('/shop/{shop}/product/add', 'addProduct')->name('shop-add-product');
+    Route::get('/shop/{shop}/product/{product}/remove', 'removeProduct')->name('shop-remove-product');
     });
+
+Route::controller(OrderController::class)->middleware('auth')->group(function () {
+    Route::get('/order/create', 'createForm')->name('order-create-form');
+    Route::post('/order/create', 'create')->name('order-create');
+    Route::get('/order/{order}', 'show')->name('order-view');
+});

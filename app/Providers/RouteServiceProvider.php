@@ -33,8 +33,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+            Route::middleware([
+                'web',
+                'cache.headers:no_store;no_cache;must_revalidate;max_age=0',
+            ]) ->group(base_path('routes/web.php'));
         });
     }
 

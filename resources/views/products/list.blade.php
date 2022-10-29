@@ -28,8 +28,6 @@
         </ul>
     </nav>
 
-    <div class="page">{{ $products->withQueryString()->links() }}</div>
-
     <div class="caption">
         <caption>PRODUCTS</caption>
     </div>

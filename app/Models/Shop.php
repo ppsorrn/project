@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
 {
+    use HasFactory;
     protected $fillable = ['code', 'name', 'address'];
 
     function products() 
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
     }
 }

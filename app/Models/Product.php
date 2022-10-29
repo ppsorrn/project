@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
     protected $fillable = ['code', 'name', 'price', 'description'];
 
-    function shops() 
+    function shop() 
     {
-        return $this->belongsToMany(Shop::class);
+        return $this->belongsTo(Shop::class);
     }
 
-    function type() 
+    function order()
     {
-        return $this->belongsTo(Type::class);
+        return $this->hasOne(Order::class);
     }
 }

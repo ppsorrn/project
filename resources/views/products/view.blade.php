@@ -14,6 +14,7 @@
                 <a href="{{ route('product-update-form', ['product' => $product->code,]) }}">Update</a>
             </li>
         @endcan
+        
         @can('delete', \App\models\Product::class)
             <li>
                 <a href="{{ route('product-delete', ['product' => $product->code,]) }}">Delete</a>
@@ -48,17 +49,18 @@
                 <em>{{ $product->name }}</em>
                 <br/>
 
-                <b>Type ID ::</b>
-                <span class="cl-category">{{ $product->type_id }}</span>
+                <b>Shop Name ::</b>
+                <span class="cl-category">{{ $product->shop_id }}</span>
                 <br/>
 
                 <b>Price ::</b>
                 <span class="cl-number">{{ number_format((double)$product->price,2) }}</span>
                 <br/>
-            <   b>Description ::</b>
+                <b>Description ::</b>
                 <br/>
                     <pre style="font-size: 15px;">{{ $product->description }}</pre>
                 <br>
+                <a href="{{ route('order-create-form') }}">Click Here to Order</a>
             </td>
         </tr>
     </table>
